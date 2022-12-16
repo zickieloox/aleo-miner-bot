@@ -1,0 +1,28 @@
+{
+  "name": "aleo-miner-bot",
+  "version": "1.0.1",
+  "description": "zic aleo miners bot",
+  "main": "aleo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zic",
+    "aleo",
+    "miners",
+    "bot",
+    "crypto",
+    "coin",
+    "cpu",
+    "gpu",
+    "blockchain"
+  ],
+  "author": "@zickieloox",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cron": "^2.0.0",
+    "dotenv": "^16.0.1",
+    "moment": "^2.29.3"
+  }
+}
