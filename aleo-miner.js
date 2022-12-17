@@ -172,6 +172,7 @@ async function startMiner() {
                         // child.kill()
 
                         isRunning = true
+                        log('STARTED', isRunning)
                         pingMiner(1)
 
                         sendMessageToChannel('✅ ✅ INFO Start working')
