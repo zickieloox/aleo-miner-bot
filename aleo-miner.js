@@ -150,9 +150,9 @@ async function startMiner() {
 
             child.stdout.setEncoding('utf8')
             child.stdout.on('data', async function (data) {
-                log('stdout: ' + data.toString())
+                log('stdout: ' + data)
 
-                data = data.toString()
+                // data = data.toString()
                 if (data.includes('INFO Found a solution')) {
                     try {
                         // child.stdin.pause()
