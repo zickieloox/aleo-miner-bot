@@ -184,7 +184,7 @@ async function startMiner() {
                         // reject(new Error(data))
                         sendMessageToChannel('🤬 🤬 Some Error Occured')
 
-                        isRunning = false
+                        // isRunning = false
 
                         // resolve(false)
                         child.stdin.pause()
