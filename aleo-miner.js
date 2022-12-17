@@ -145,7 +145,7 @@ async function startMiner() {
                 cwd: path.resolve(__dirname, './')
             })
 
-            address = ALEO_COMMAND.split('--address')[1].split(' ')[0]
+            address = ALEO_COMMAND.split('--address ')[1].split(' ')[0]
 
             log('Aleo', address)
 
