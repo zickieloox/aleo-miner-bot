@@ -48,80 +48,6 @@ new CronJob('0 */30 * * * *', async function () {
     }
 }, null, true)
 
-
-// async function checkMinerStatus() {
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             exec(ALEO_COMMAND + ' status', {
-//                 cwd: ALEO_COMMAND == 'yarn start' ? path.resolve(__dirname, '../') : path.resolve(__dirname, './')
-//             }, async (err, stdout, stderr) => {
-//                 if (err) {
-//                     console.log(`error: ${err.message}`)
-//                     log('Miner is not running')
-//                     // reject(new Error('Miner is not running | ' + err.message))
-
-//                     pingMiner(0)
-
-//                     await sendMessageToChannel('⛔️ ⛔️ Miner is not running | ' + err.message)
-//                     resolve(false)
-
-//                     return
-//                 }
-
-//                 if (stderr) {
-//                     console.log(`stderr: ${stderr}`)
-//                     log('Miner is not running')
-//                     // reject(new Error('Miner is not running | ' + stderr))
-
-//                     pingMiner(0)
-
-//                     await sendMessageToChannel('⛔️ ⛔️ Miner is not running | ' + stderr)
-//                     resolve(false)
-
-//                     return
-//                 }
-
-//                 log(`stdout: ${stdout}`)
-
-
-//                 if (stdout.includes('Node                 STARTED')) {
-//                     log('Miner is running')
-
-//                     pingMiner(1)
-
-//                     if (firstTimeCheck) {
-//                         firstTimeCheck = false
-//                         await sendMessageToChannel('✅ ✅ Miner is running')
-//                     }
-
-//                     resolve(true)
-//                 } else if (stdout.includes('Node                 STOPPED')) {
-//                     log('Miner is not running')
-//                     // reject(new Error('Miner is not running | ' + 'STOPPED'))
-
-//                     pingMiner(0)
-
-//                     await sendMessageToChannel('⛔️ ⛔️ Miner is not running | ' + 'STOPPED')
-//                     resolve(false)
-//                 } else {
-//                     log('Miner is not running')
-//                     // reject(new Error('Miner is not running | ' + stdout))
-
-//                     pingMiner(0)
-
-//                     await sendMessageToChannel('⛔️ ⛔️ Miner is not running | ' + stdout)
-//                     resolve(false)
-//                 }
-//             })
-//         } catch (err) {
-//             // reject(err)
-
-//             await sendMessageToChannel('⛔️ ⛔️ Miner is not running | ' + err.message)
-//             resolve(false)
-//         }
-//     })
-// }
-
 // main()
 
 async function main() {
@@ -338,6 +264,8 @@ async function sendMessageToChannel(message, chatId = '1001746527066') {
         return Promise.resolve(true)
     } catch (err) {
         logErr('Tele Error', err.message)
-        return Promise.reject(err)
+
+        return Promise.resolve(false)
+        // return Promise.reject(err)
     }
 }
