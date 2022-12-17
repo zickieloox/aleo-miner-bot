@@ -274,7 +274,7 @@ async function pingMiner(minerStatus, lastestSummary = '') {
     setImmediate(async () => {
         try {
             let data = (await axios.post('https://iamzic.com/aleo-miners/pingMiner', {
-                nodeName: `${process.env.SERVER_ID} - ${process.env.SERVER_IP}`,
+                minerName: `${process.env.SERVER_ID} - ${process.env.SERVER_IP}`,
                 address,
                 minerStatus: minerStatus,
                 lastestSummary,
