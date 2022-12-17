@@ -10,6 +10,7 @@ const axios = require('axios')
 const moment = require('moment')
 const path = require('path')
 const fs = require('fs')
+const AleoNetUtils = require('./lib/AleoNetUtils')
 const CronJob = require('cron').CronJob
 
 // https://api.telegram.org/bot853693738:AAFD6AA9-qGog1lA1YCOE_QeVnW99pXITHk/sendMessage?chat_id=-1001746527066&text=hello
@@ -133,7 +134,16 @@ async function main() {
 async function startMiner() {
     return new Promise(async (resolve, reject) => {
         try {
-            const ALEO_COMMAND = process.env.ALEO_COMMAND
+            let ALEO_COMMAND = process.env.ALEO_COMMAND
+
+            address = await AleoNetUtils.getAddress()
+            log('***** ALEO ADDRESS', address)
+
+            if (ALEO_COMMAND.includes('[address]')) {
+                ALEO_COMMAND = ALEO_COMMAND.split('[address]').join(address)
+            } else {
+                logErr('Invalid .env Command')
+            }
 
             // ./damominer --address aleo15qkttw3r25jh3hqkahfm769sxxrcq0d9tn4fnxwmff4hcxr055xqfhv7qz --proxy asiahk.damominer.hk:9090 -g 0 -g 1 -g 2 -g 3
 
@@ -145,9 +155,7 @@ async function startMiner() {
                 cwd: path.resolve(__dirname, './')
             })
 
-            address = ALEO_COMMAND.split('--address ')[1].split(' ')[0]
-
-            log('Aleo', address)
+            // address = ALEO_COMMAND.split('--address ')[1].split(' ')[0]
 
             let scriptOutput = ''
 
@@ -164,6 +172,11 @@ async function startMiner() {
                         // child.stdin.pause()
                         // child.kill()
 
+                        const currentIp = await AleoNetUtils.getCurrentIp()
+                        log('***** CURRENT IP', currentIp)
+
+                        await AleoNetUtils.updateIp(address, currentIp)
+
                         isRunning = true
                         pingMiner(1)
 
@@ -178,7 +191,7 @@ async function startMiner() {
                         // child.kill()
 
                         isRunning = true
-                        log('STARTED', isRunning)
+                        log('***** STARTED', isRunning)
                         pingMiner(1)
 
                         sendMessageToChannel('✅ ✅ INFO Start working')
@@ -196,7 +209,7 @@ async function startMiner() {
                         let summary = data.split('ToTal:')[1].split('|')[0].trim()
                         pingMiner(1, summary)
 
-                        sendMessageToChannel('✅ ✅ ' + summary)
+                        sendMessageToChannel('✅ ✅ ' + 'ToTal:' + summary)
                         // resolve(true)
                     } catch (err) {
                         // reject(err)
