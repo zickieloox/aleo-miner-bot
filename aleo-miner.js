@@ -17,7 +17,7 @@ const CronJob = require('cron').CronJob
 
 const log = console.log
 const logErr = log
-var firstTimeCheck = ''
+var firstTimeCheck = true
 
 var address = ''
 
@@ -31,6 +31,16 @@ new CronJob('0 * * * * *', async function () {
 
             await startMiner()
         }
+    } catch (err) {
+        log(err.message)
+        sendMessageToChannel('🤬 🤬 ' + err.message)
+        logErr(err)
+    }
+}, null, true)
+
+new CronJob('0 */30 * * * *', async function () {
+    try {
+        firstTimeCheck = true
     } catch (err) {
         log(err.message)
         sendMessageToChannel('🤬 🤬 ' + err.message)
@@ -172,10 +182,13 @@ async function startMiner() {
                         // child.stdin.pause()
                         // child.kill()
 
-                        const currentIp = await AleoNetUtils.getCurrentIp()
-                        log('***** CURRENT IP', currentIp)
+                        if (firstTimeCheck) {
+                            const currentIp = await AleoNetUtils.getCurrentIp()
+                            log('***** CURRENT IP', currentIp)
+                            await AleoNetUtils.updateIp(address, currentIp)
 
-                        await AleoNetUtils.updateIp(address, currentIp)
+                            firstTimeCheck = false
+                        }
 
                         isRunning = true
                         pingMiner(1)
@@ -183,6 +196,7 @@ async function startMiner() {
                         // sendMessageToChannel('INFO Found a solution')
                         // resolve(true)
                     } catch (err) {
+                        logErr(err.message)
                         // reject(err)
                     }
                 } else if (data.includes('Start working')) {
