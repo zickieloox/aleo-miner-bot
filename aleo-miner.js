@@ -150,10 +150,10 @@ async function startMiner() {
 
             child.stdout.setEncoding('utf8')
             child.stdout.on('data', async function (data) {
-                log('stdout: ' + data)
+                log('stdout: ' + data.toString())
 
-                // data = data.toString()
-                if (data.includes('INFO Found a solution')) {
+                data = data.toString()
+                if (data.includes('INFO [0m  [32mFound a solution')) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
@@ -166,7 +166,7 @@ async function startMiner() {
                     } catch (err) {
                         // reject(err)
                     }
-                } else if (data.includes('INFO Start working')) {
+                } else if (data.includes('INFO [0m  [32mStart working')) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
