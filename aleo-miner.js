@@ -151,6 +151,7 @@ async function startMiner() {
             child.stdout.setEncoding('utf8')
             child.stdout.on('data', async function (data) {
                 data = data.toString()
+                data = Buffer.from(data, 'utf-8').toString()
 
                 log('stdout: ' + data)
 
