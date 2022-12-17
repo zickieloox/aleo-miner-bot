@@ -147,6 +147,8 @@ async function startMiner() {
 
             address = ALEO_COMMAND.split('--address')[1].split(' ')[0]
 
+            log('Aleo', address)
+
             let scriptOutput = ''
 
             child.stdout.setEncoding('utf8')
