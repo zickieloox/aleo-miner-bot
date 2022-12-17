@@ -23,10 +23,11 @@ var address = ''
 var isRunning = false
 new CronJob('0 * * * * *', async function () {
     try {
-        log('This is from cron job')
         // let result = await checkMinerStatus()
 
         if (!isRunning) { // (!result)
+            log('This is from cron job')
+
             await startMiner()
         }
     } catch (err) {
@@ -300,7 +301,8 @@ async function sendMessageToChannel(message, chatId = '1001746527066') {
         let text = `${moment().utcOffset('+0700').format('DD/MM/YYYY HH:mm:ss')} | ${process.env.SERVER_ID} - ${process.env.SERVER_IP} | ${message}`
         let response = await axios.get(`https://api.telegram.org/bot853693738:AAFD6AA9-qGog1lA1YCOE_QeVnW99pXITHk/sendMessage?chat_id=-${chatId}&text=${encodeURIComponent(text)}`)
 
-        log(response.data)
+        // log(response.data)
+        log('Tele Response')
 
         return Promise.resolve(true)
     } catch (err) {
