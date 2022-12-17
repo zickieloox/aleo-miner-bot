@@ -16,9 +16,11 @@ const CronJob = require('cron').CronJob
 
 const log = console.log
 const logErr = log
-let firstTimeCheck = true
+var firstTimeCheck = ''
 
-let isRunning = false
+var address = ''
+
+var isRunning = false
 new CronJob('0 * * * * *', async function () {
     try {
         log('This is from cron job')
@@ -141,6 +143,8 @@ async function startMiner() {
             const child = spawn(ALEO_COMMAND.split(' ')[0], ALEO_COMMAND.split(' ').slice(1), {
                 cwd: path.resolve(__dirname, './')
             })
+
+            address = ALEO_COMMAND.split('--address')[1].split(' ')[0]
 
             let scriptOutput = ''
 
@@ -266,6 +270,7 @@ async function pingMiner(minerStatus, lastestSummary = '') {
         try {
             let data = (await axios.post('https://iamzic.com/aleo-miners/pingMiner', {
                 nodeName: `${process.env.SERVER_ID} - ${process.env.SERVER_IP}`,
+                address,
                 minerStatus: minerStatus,
                 lastestSummary,
                 updatedAt: Date.now() / 1000 | 0
