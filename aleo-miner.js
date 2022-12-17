@@ -111,7 +111,7 @@ new CronJob('0 * * * * *', async function () {
 //     })
 // }
 
-main()
+// main()
 
 async function main() {
     try {
@@ -167,7 +167,7 @@ async function startMiner() {
                         isRunning = true
                         pingMiner(1)
 
-                        sendMessageToChannel('INFO Found a solution')
+                        // sendMessageToChannel('INFO Found a solution')
                         // resolve(true)
                     } catch (err) {
                         // reject(err)
@@ -192,9 +192,11 @@ async function startMiner() {
                         // child.kill()
 
                         isRunning = true
-                        pingMiner(1, data)
 
-                        sendMessageToChannel('✅ ✅ ' + data)
+                        let summary = data.split('ToTal:')[1].split('|')[0].trim()
+                        pingMiner(1, summary)
+
+                        sendMessageToChannel('✅ ✅ ' + summary)
                         // resolve(true)
                     } catch (err) {
                         // reject(err)
