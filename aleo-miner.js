@@ -151,12 +151,12 @@ async function startMiner() {
             child.stdout.setEncoding('utf8')
             child.stdout.on('data', async function (data) {
                 data = data.toString()
-                data = Buffer.from(data, 'utf-8').toString()
+                // data = Buffer.from(data, 'utf-8').toString()
 
                 log('stdout: ' + data)
 
                 fs.appendFileSync('./aleo-logs.txt', data, 'utf-8')
-                if (data.includes('INFO [0m  [32mFound a solution')) {
+                if (data.includes('Found a solution')) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
@@ -169,7 +169,7 @@ async function startMiner() {
                     } catch (err) {
                         // reject(err)
                     }
-                } else if (data.includes('INFO [0m  [32mStart working')) {
+                } else if (data.includes('Start working')) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
