@@ -183,7 +183,7 @@ async function startMiner() {
                     } catch (err) {
                         // reject(err)
                     }
-                } else if (data.includes('INFO Summary')) {
+                } else if (data.includes('Summary')) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
