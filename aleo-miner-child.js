@@ -30,8 +30,11 @@ new CronJob('0 * * * * *', async function () {
             const newAddress = await AleoNetUtils.getAddress()
 
             if (newAddress != address) {
-                log('***RESTART New Adress', newAddress, address)
-                process.exit(0)
+                log('***** RESTART Bot - New Adress', newAddress, address)
+
+                await AleoNetUtils.resetModem()
+
+                process.exit(100) // !important
                 return
             }
         }

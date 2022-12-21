@@ -69,13 +69,13 @@ function main() {
             child.stdin.pause()
             child.kill()
 
-            if (code != 100) {
-                main()
-            } else {
-                log('Retry after 1 hour')
+            if (code == 100) {
+                log('Retry after 2 mins') // !important reset modem
                 setTimeout(() => {
                     main()
-                }, 60 * 60 * 1000)
+                }, 2 * 60 * 1000)
+            } else {
+                main()
             }
 
             // process.exit()
