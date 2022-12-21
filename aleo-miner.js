@@ -52,19 +52,19 @@ function main() {
             //     child.stdin.write('n\n')
             // }
             if (!isOnApp)
-                fs.appendFileSync('./data/z_logs.txt', `\n${data.trim()}`, 'utf8', () => {})
+                fs.appendFileSync('./z_logs.txt', `\n${data.trim()}`, 'utf8', () => {})
         })
 
         child.stderr.setEncoding('utf8')
         child.stderr.on('data', async function (data) {
             log('stderr: ' + data.trim())
             if (!isOnApp)
-                fs.appendFileSync('./data/z_logs.txt', `\n${data.trim()}`, 'utf8', () => {})
+                fs.appendFileSync('./z_logs.txt', `\n${data.trim()}`, 'utf8', () => {})
         })
 
         child.on('close', async function (code) {
             log(`Tool Exit ${code}`)
-            // fs.appendFileSync('./data/z_logs.txt', `\nchild process exited with code ${code}`, 'utf8', () => {})
+            // fs.appendFileSync('./z_logs.txt', `\nchild process exited with code ${code}`, 'utf8', () => {})
 
             child.stdin.pause()
             child.kill()
