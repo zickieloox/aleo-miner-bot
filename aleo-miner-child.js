@@ -23,6 +23,8 @@ var firstTimeCheck = true
 var address = ''
 
 var isRunning = false
+var child = ''
+
 new CronJob('0 * * * * *', async function () {
     try {
         // let result = await checkMinerStatus()
@@ -35,6 +37,11 @@ new CronJob('0 * * * * *', async function () {
 
                 await sendMessageToChannel('⛔️ ⛔️ RESTART Bot - New Adress: ' + newAddress)
 
+                if (child) {
+                    child.stdin.pause()
+                    child.kill()
+                }
+                
                 await ShellUtils.rebootModem()
 
                 // try {
@@ -109,7 +116,7 @@ async function startMiner() {
 
             // const param1 = ALEO_COMMAND == 'yarn start' ? 'yarn' : ALEO_COMMAND
             // const param2 = ALEO_COMMAND == 'yarn start' ? ['start', 'start'] : ['start']
-            const child = spawn(ALEO_COMMAND.split(' ')[0], ALEO_COMMAND.split(' ').slice(1), {
+            child = spawn(ALEO_COMMAND.split(' ')[0], ALEO_COMMAND.split(' ').slice(1), {
                 cwd: path.resolve(__dirname, './')
             })
 
