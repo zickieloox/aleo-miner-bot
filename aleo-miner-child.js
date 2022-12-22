@@ -11,6 +11,7 @@ const moment = require('moment')
 const path = require('path')
 const fs = require('fs')
 const AleoNetUtils = require('./lib/AleoNetUtils')
+const ShellUtils = require('./lib/ShellUtils')
 const CronJob = require('cron').CronJob
 
 // https://api.telegram.org/bot853693738:AAFD6AA9-qGog1lA1YCOE_QeVnW99pXITHk/sendMessage?chat_id=-1001746527066&text=hello
@@ -29,10 +30,18 @@ new CronJob('0 * * * * *', async function () {
         if (address) {
             const newAddress = await AleoNetUtils.getAddress()
 
-            if (newAddress != address) {
+            if (true || newAddress != address) {
                 log('***** RESTART Bot - New Adress', newAddress, address)
 
-                await AleoNetUtils.resetModem()
+                await sendMessageToChannel('⛔️ ⛔️ RESTART Bot - New Adress: ' + newAddress)
+
+                await ShellUtils.rebootModem()
+
+                // try {
+                //     await AleoNetUtils.resetModem()
+                // } catch (err) {
+                //     logErr(err.message)
+                // }
 
                 process.exit(100) // !important
                 return
