@@ -27,7 +27,7 @@ new CronJob('0 * * * * *', async function () {
     try {
         // let result = await checkMinerStatus()
 
-        if (address) {
+        if (true || address) {
             const newAddress = await AleoNetUtils.getAddress()
 
             if (true || newAddress != address) {
