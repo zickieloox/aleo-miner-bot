@@ -29,10 +29,10 @@ new CronJob('0 * * * * *', async function () {
     try {
         // let result = await checkMinerStatus()
 
-        if (true || address) {
+        if (address) {
             const newAddress = await AleoNetUtils.getAddress()
 
-            if (true || newAddress != address) {
+            if (newAddress != address) {
                 log('***** RESTART Bot - New Adress', newAddress, address)
 
                 await sendMessageToChannel('⛔️ ⛔️ RESTART Bot - New Adress: ' + newAddress)

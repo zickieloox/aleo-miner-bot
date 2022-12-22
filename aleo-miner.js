@@ -70,10 +70,10 @@ function main() {
             child.kill()
 
             if (code == 100) {
-                log('Retry after 2 mins') // !important reset modem
+                log('Retry after 4 mins') // !important reset modem
                 setTimeout(() => {
                     main()
-                }, 2 * 60 * 1000)
+                }, 4 * 60 * 1000)
             } else {
                 main()
             }
