@@ -41,8 +41,8 @@ new CronJob('0 * * * * *', async function () {
                     child.stdin.pause()
                     child.kill()
                 }
-                
-                await ShellUtils.rebootModem()
+
+                await ShellUtils.rebootModem2()
 
                 // try {
                 //     await AleoNetUtils.resetModem()
