@@ -228,7 +228,7 @@ async function startMiner() {
 
             child.on('close', async function (code) {
                 // scriptOutput += `child process exited with code ${code}`
-                scriptOutput = scriptOutput.split('\n').slice(-14).join('\n') + `\nchild process exited with code ${code}`
+                scriptOutput = scriptOutput.split('\n').slice(-6).join('\n') + `\nchild process exited with code ${code}`
                 log(`child process exited with code ${code}`)
                 // reject(new Error(scriptOutput))
                 sendMessageToChannel('🤬 🤬 ' + scriptOutput)
