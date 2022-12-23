@@ -23,11 +23,15 @@ var firstTimeCheck = true
 var address = ''
 
 var isRunning = false
+var isStopped = false
 var child = ''
 
 new CronJob('0 * * * * *', async function () {
     try {
         // let result = await checkMinerStatus()
+
+        if (isStopped)
+            return
 
         if (address) {
             const newAddress = await AleoNetUtils.getAddress()
@@ -175,10 +179,22 @@ async function startMiner() {
 
                         isRunning = true
 
-                        let summary = data.split('ToTal:')[1].split('|')[0].trim()
-                        pingMiner(1, summary, summary)
+                        let currentMin = new Date().getMinutes()
 
-                        sendMessageToChannel('✅ ✅ ' + 'ToTal Hashrate: ' + summary)
+                        if (currentMin % 2 == 0) {
+
+                        } else {
+                            currentMin = currentMin - 1
+                        }
+
+                        // Every 10 minutes
+                        if (currentMin % 10 == 0) {
+                            let summary = data.split('ToTal:')[1].split('|')[0].trim()
+                            pingMiner(1, summary, summary)
+
+                            sendMessageToChannel('✅ ✅ ' + 'ToTal Hashrate: ' + summary)
+                        }
+
                         // resolve(true)
                     } catch (err) {
                         // reject(err)
@@ -208,12 +224,17 @@ async function startMiner() {
                 log('stderr: ' + data.toString())
 
                 data = data.toString()
-                if (data.includes('Some Error Occured')) {
+                if (data.includes('Failed to get GPU device, GPU maybe lost')) {
                     try {
                         // reject(new Error(data))
-                        sendMessageToChannel('🤬 🤬 Some Error Occured')
+                        pingminer(0)
 
-                        // isRunning = false
+                        sendMessageToChannel('🤬 🤬 Failed to get GPU device, GPU maybe lost')
+
+                        isRunning = false
+                        isStopped = true
+
+                        log('***** STOPPED')
 
                         // resolve(false)
                         child.stdin.pause()
@@ -227,6 +248,9 @@ async function startMiner() {
             })
 
             child.on('close', async function (code) {
+                if (isStopped)
+                    return
+
                 // scriptOutput += `child process exited with code ${code}`
                 scriptOutput = scriptOutput.split('\n').slice(-6).join('\n') + `\nchild process exited with code ${code}`
                 log(`child process exited with code ${code}`)
