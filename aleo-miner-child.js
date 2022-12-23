@@ -225,7 +225,8 @@ async function startMiner() {
 
                 log('stderr: ' + data)
 
-                if (data.includes('Failed to get GPU device, GPU maybe lost')) {
+                log(data.includes('GPU maybe lost'))
+                if (data.includes('GPU maybe lost')) {
                     try {
                         // reject(new Error(data))
                         pingminer(0)
