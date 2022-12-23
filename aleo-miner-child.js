@@ -214,7 +214,9 @@ async function startMiner() {
                     }
                 }
 
-                scriptOutput += data
+                 // only 20 lines
+                 scriptOutput = scriptOutput.split('\n').slice(-20).join('\n') + '\n'
+                 scriptOutput += 'stdout: ' + data
             })
 
             // ERROR Wrong GPU index, GPU index starts from 0. Example: 0 for the first GPU, 1 for the second
@@ -225,13 +227,12 @@ async function startMiner() {
 
                 log('stderr: ' + data)
 
-                log(data.includes('Failed to get GPU device, GPU maybe lost'))
                 if (data.includes('Failed to get GPU device, GPU maybe lost')) {
                     try {
                         // reject(new Error(data))
                         pingMiner(0)
 
-                        sendMessageToChannel('🤬 🤬 Failed to get GPU device, GPU maybe lost')
+                        sendMessageToChannel('🤬 🤬 STOPPED - Failed to get GPU device, GPU maybe lost')
 
                         isRunning = false
                         isStopped = true
@@ -246,7 +247,9 @@ async function startMiner() {
                     }
                 }
 
-                scriptOutput += data
+                // only 20 lines
+                scriptOutput = scriptOutput.split('\n').slice(-20).join('\n') + '\n'
+                scriptOutput += 'stderr: ' + data
             })
 
             child.on('close', async function (code) {
