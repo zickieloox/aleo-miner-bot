@@ -221,9 +221,10 @@ async function startMiner() {
 
             child.stderr.setEncoding('utf8')
             child.stderr.on('data', async function (data) {
-                log('stderr: ' + data.toString())
-
                 data = data.toString()
+
+                log('stderr: ' + data)
+
                 if (data.includes('Failed to get GPU device, GPU maybe lost')) {
                     try {
                         // reject(new Error(data))
