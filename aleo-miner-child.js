@@ -225,11 +225,11 @@ async function startMiner() {
 
                 log('stderr: ' + data)
 
-                log(data.includes('GPU maybe lost'))
-                if (data.includes('GPU maybe lost')) {
+                log(data.includes('Failed to get GPU device, GPU maybe lost'))
+                if (data.includes('Failed to get GPU device, GPU maybe lost')) {
                     try {
                         // reject(new Error(data))
-                        pingminer(0)
+                        pingMiner(0)
 
                         sendMessageToChannel('🤬 🤬 Failed to get GPU device, GPU maybe lost')
 
