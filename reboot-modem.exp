@@ -5,7 +5,8 @@ set USERNAME "root"
 set PASSWORD "VBMkaeqwzvpi7HV"
 set ROUTERIP "192.168.1.1"
 # Your username@host
-spawn ssh $USERNAME@$ROUTERIP -tt -o ConnectTimeout=2
+# https://stackoverflow.com/questions/3663895/ssh-the-authenticity-of-host-hostname-cant-be-established
+spawn ssh $USERNAME@$ROUTERIP -tt -o ConnectTimeout=2 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 expect "password: "
 # Your SSH password goes here
 send -- "$PASSWORD\r"
