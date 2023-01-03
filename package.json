@@ -2,9 +2,29 @@
   "name": "aleo-miner-bot",
   "version": "1.0.1",
   "description": "zic aleo miners bot",
-  "main": "aleo.js",
+  "main": "hiveos-aleo-miner.js",
+  "bin": "hiveos-aleo-miner.js",
+  "pkg": {
+    "scripts": [
+      "build/**/*.js",
+      "test/**/*.js"
+    ],
+    "assets": [
+      "assets",
+      "dist",
+      "lib/**/*.js",
+      "node_modules/**/*.*",
+      "hiveos-aleo-miner.js",
+      "hiveos-aleo-miner-child.js"
+    ],
+    "targets": [
+      "node16-linux-x64"
+    ],
+    "outputPath": "./"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pkg": "pkg . -o zic_damominer"
   },
   "keywords": [
     "zic",
@@ -24,6 +44,7 @@
     "cron": "^2.0.0",
     "dotenv": "^16.0.1",
     "moment": "^2.29.3",
-    "simple-ssh": "^1.1.1"
+    "simple-ssh": "^1.1.1",
+    "yargs": "^17.6.2"
   }
 }
