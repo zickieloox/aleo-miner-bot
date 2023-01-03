@@ -109,3 +109,5 @@ dist
 .vscode/ftp-kr.json
 zic-logs.txt
 z_logs.txt
+temp/
+hiveos-dist/

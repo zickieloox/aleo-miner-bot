@@ -143,7 +143,7 @@ async function startMiner() {
             log(ALEO_COMMAND)
 
             child = spawn(ALEO_COMMAND.split(' ')[0], ALEO_COMMAND.split(' ').slice(1), {
-                cwd: path.resolve(__dirname, './')
+                cwd: path.resolve('./')
             })
 
             // address = ALEO_COMMAND.split('--address ')[1].split(' ')[0]
