@@ -123,7 +123,7 @@ async function startMiner() {
                     ALEO_COMMAND += ' -g ' + g 
                 }
             } else {
-                logError('Invalid -g argument')
+                logErr('Invalid -g argument')
                 process.exit(0)
             }
 
