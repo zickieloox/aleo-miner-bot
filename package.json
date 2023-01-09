@@ -1,6 +1,6 @@
 {
   "name": "aleo-miner-bot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "zic aleo miners bot",
   "main": "hiveos-aleo-miner.js",
   "bin": "hiveos-aleo-miner.js",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pkg": "pkg . -o ./hiveos-dist/zic_damominer_v1.0.1/zic_damominer && cp h-manifest.conf ./hiveos-dist/zic_damominer_v1.0.1 && cd ./hiveos-dist && tar -czf zic_damominer_v1.0.1.tar.gz zic_damominer_v1.0.1"
+    "pkg": "pkg . -o ./hiveos-dist/zic_damominer_v1.0.2/zic_damominer && cp h-manifest.conf ./hiveos-dist/zic_damominer_v1.0.2 && cd ./hiveos-dist && tar -czf zic_damominer_v1.0.2.tar.gz zic_damominer_v1.0.2"
   },
   "keywords": [
     "zic",
